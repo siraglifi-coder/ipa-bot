@@ -17,12 +17,12 @@ client.once('ready', () => {
 
     const guild = client.guilds.cache.get(GUILD_ID);
     if (!guild) {
-        return console.log("❌ خطأ: لم يتم العثور على السيرفر!");
+        return console.log("❌ Error: Guild not found!");
     }
 
     const channel = guild.channels.cache.get(CHANNEL_ID);
     if (!channel) {
-        return console.log("❌ خطأ: لم يتم العثور على روم الفويس!");
+        return console.log("❌ Error: Voice channel not found!");
     }
 
     try {
@@ -33,13 +33,12 @@ client.once('ready', () => {
             selfDeaf: true,
             selfMute: false
         });
-        console.log(`🎤 تم الاتصال بروم الفويس بنجاح: ${channel.name}`);
+        console.log(`🎤 Successfully joined voice channel: ${channel.name}`);
     } catch (error) {
-        console.error("❌ خطأ أثناء الدخول للفويس:", error);
+        console.error("❌ Error joining voice:", error);
     }
 });
 
-// هذا الكود يخليه يعاود يدخل أوتوماتيكياً لو خرج
 client.on('voiceStateUpdate', (oldState, newState) => {
     if (newState.member.id === client.user.id && !newState.channelId) {
         const guild = client.guilds.cache.get(GUILD_ID);
@@ -53,9 +52,9 @@ client.on('voiceStateUpdate', (oldState, newState) => {
                     selfDeaf: true,
                     selfMute: false
                 });
-                console.log("🔄 البوت عاود دخل للفويس أوتوماتيكياً!");
+                console.log("🔄 Bot reconnected to voice automatically!");
             } catch (error) {
-                console.error("❌ خطأ أثناء إعادة الدخول:", error);
+                console.error("❌ Error reconnecting:", error);
             }
         }
     }
