@@ -56,10 +56,6 @@ app.listen(port, () => {
 });
 
 console.log("جاري تسجيل الدخول بحساب البوت...");
-if (!process.env.TOKEN) {
-    console.log("⚠️ تحذير: التوكن غير موجود! تأكد من إعدادات Environment Variables في Render.");
-}
-
-client.login(process.env.TOKEN).catch(err => {
-    console.error("❌ خطأ في تسجيل الدخول (التوكن غير صحيح أو مشكلة في ديسكورد):", err);
+client.login("MTUyOTI3NjiyMjkxNDE3MTA3MQ.GQ5hUC.Frn9ubeR0oA3Sy7VMv061-kIu7U7uGabb8cpE").catch(err => {
+    console.error("❌ خطأ في تسجيل الدخول:", err);
 });
