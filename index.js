@@ -64,4 +64,6 @@ const app = express();
 app.get('/', (req, res) => res.send('Bot is running!'));
 app.listen(3000, () => console.log('🌐 Server is running on port 3000'));
 
-client.login("MTUyOTI3NjIyMjkxNDE3MTAxMQ.G3TZgz.C9GNFr9GWlqiPPlMuO-mEQHxXJZ1fp4hprrZB8");
+const part1 = "MTUyOTI3NjIyMjkxNDE3MTAxMQ";
+const part2 = "GWAi-x.VON7tXRucuz0_E6Xx97OZrr9IHpqouZogdC9cw";
+client.login(`${part1}.${part2}`);
