@@ -1,10 +1,6 @@
-console.log("بدأ تشغيل السكربت...");
-
 const { Client, GatewayIntentBits } = require('discord.js');
 const { joinVoiceChannel } = require('@discordjs/voice');
 const express = require('express');
-
-console.log("تم استدعاء المكتبات بنجاح.");
 
 const client = new Client({
     intents: [
@@ -21,16 +17,15 @@ client.once('ready', () => {
 
     const guild = client.guilds.cache.get(GUILD_ID);
     if (!guild) {
-        return console.log("❌ خطأ: لم يتم العثور على السيرفر! تأكد من أن البوت موجود في السيرفر.");
+        return console.log("❌ خطأ: لم يتم العثور على السيرفر!");
     }
 
     const channel = guild.channels.cache.get(CHANNEL_ID);
     if (!channel) {
-        return console.log("❌ خطأ: لم يتم العثور على روم الفويس! تأكد من الأيدي (ID).");
+        return console.log("❌ خطأ: لم يتم العثور على روم الفويس!");
     }
 
     try {
-        console.log("جاري محاولة الاتصال بالصوت...");
         joinVoiceChannel({
             channelId: channel.id,
             guildId: guild.id,
@@ -40,22 +35,12 @@ client.once('ready', () => {
         });
         console.log(`🎤 تم الاتصال بروم الفويس بنجاح: ${channel.name}`);
     } catch (error) {
-        console.error("❌ خطأ أثناء محاولة الدخول للفويس:", error);
+        console.error("❌ خطأ أثناء الدخول للفويس:", error);
     }
 });
 
 const app = express();
-const port = process.env.PORT || 3000;
+app.get('/', (req, res) => res.send('Bot is running!'));
+app.listen(3000, () => console.log('🌐 Server is running on port 3000'));
 
-app.get('/', (req, res) => {
-    res.send('Bot is running!');
-});
-
-app.listen(port, () => {
-    console.log(`🌐 Server is running on port ${port}`);
-});
-
-console.log("جاري تسجيل الدخول بحساب البوت...");
-client.login("MTUyOTI3NjiyMjkxNDE3MTA3MQ.GQ5hUC.Frn9ubeR0oA3Sy7VMv061-kIu7U7uGabb8cpE").catch(err => {
-    console.error("❌ خطأ في تسجيل الدخول:", err);
-});
+client.login("MTUyOTI3NjIyMjkxNDE3MTAxMQ.G3TZgz.C9GNFr9GWlqiPPlMuO-mEQHxXJZ1fp4hprrZB8");
