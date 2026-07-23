@@ -39,6 +39,28 @@ client.once('ready', () => {
     }
 });
 
+// هذا الكود يخليه يعاود يدخل أوتوماتيكياً لو خرج
+client.on('voiceStateUpdate', (oldState, newState) => {
+    if (newState.member.id === client.user.id && !newState.channelId) {
+        const guild = client.guilds.cache.get(GUILD_ID);
+        const channel = guild?.channels.cache.get(CHANNEL_ID);
+        if (channel) {
+            try {
+                joinVoiceChannel({
+                    channelId: channel.id,
+                    guildId: guild.id,
+                    adapterCreator: guild.voiceAdapterCreator,
+                    selfDeaf: true,
+                    selfMute: false
+                });
+                console.log("🔄 البوت عاود دخل للفويس أوتوماتيكياً!");
+            } catch (error) {
+                console.error("❌ خطأ أثناء إعادة الدخول:", error);
+            }
+        }
+    }
+});
+
 const app = express();
 app.get('/', (req, res) => res.send('Bot is running!'));
 app.listen(3000, () => console.log('🌐 Server is running on port 3000'));
