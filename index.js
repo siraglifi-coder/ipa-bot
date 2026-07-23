@@ -1,6 +1,6 @@
 const { Client, GatewayIntentBits } = require('discord.js');
 const { joinVoiceChannel } = require('@discordjs/voice');
-require('dotenv').config();
+const express = require('express');
 
 const client = new Client({
     intents: [
@@ -9,24 +9,37 @@ const client = new Client({
     ]
 });
 
+const TOKEN = "MTUyOTI3NjIyMjkxNDE3MTAxMQ.GQ5hUC.Frn9ube6R0oA3Sy7VMvO6l-kIu7U7uGabb8cpE";
+const GUILD_ID = "1494985474425749668";
+const CHANNEL_ID = "1529654011412746432";
+
 client.once('ready', () => {
-    console.log(`✅ Logged in as ${client.user.tag}`);
+    console.log(`Bot Online: ${client.user.tag}`);
+
+    const guild = client.guilds.cache.get(GUILD_ID);
+    if (!guild) {
+        return console.log("خطأ: لم يتم العثور على السيرفر!");
+    }
+
+    const channel = guild.channels.cache.get(CHANNEL_ID);
+    if (!channel) {
+        return console.log("خطأ: لم يتم العثور على روم الفويس!");
+    }
 
     try {
         joinVoiceChannel({
-            channelId: '1529654011412746432',
-            guildId: '1494985474425749668',
-            adapterCreator: client.guilds.cache.get('1494985474425749668').voiceAdapterCreator,
+            channelId: channel.id,
+            guildId: guild.id,
+            adapterCreator: guild.voiceAdapterCreator,
             selfDeaf: true,
             selfMute: false
         });
-        console.log('✅ Joined Voice Channel successfully!');
+        console.log(`تم الاتصال بروم الفويس بنجاح: ${channel.name}`);
     } catch (error) {
-        console.error('❌ Error joining voice channel:', error);
+        console.error("خطأ أثناء محاولة الدخول للفويس:", error);
     }
 });
 
-client.login(process.env.TOKEN);const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -35,5 +48,7 @@ app.get('/', (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Server is listening on port ${port}`);
+    console.log(`Server is running on port ${port}`);
 });
+
+client.login(TOKEN);
