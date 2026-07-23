@@ -67,3 +67,14 @@ app.listen(3000, () => console.log('🌐 Server is running on port 3000'));
 const part1 = "MTUyOTI3NjIyMjkxNDE3MTAxMQ";
 const part2 = "GWAi-x.VON7tXRucuz0_E6Xx97OZrr9IHpqouZogdC9cw";
 client.login(`${part1}.${part2}`);
+const express = require('express');
+const app = express();
+const port = process.0.env.PORT || 3000;
+
+app.get('/', (req, res) => {
+  res.send('Bot is alive!');
+});
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
